@@ -22,8 +22,8 @@ public class PaddleController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //check if application is focused for input (to allow multiple instances)
-        if (!Application.isFocused) return;
+        //check if application is focused for input (to allow multiple instances) & is the owner instance of the script
+        if (!IsOwner || !Application.isFocused) return;
 
         HandleVelocity();
     }
