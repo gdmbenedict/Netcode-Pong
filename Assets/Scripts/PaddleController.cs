@@ -21,7 +21,7 @@ public class PaddleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(forceDirection);
+        //Debug.Log(forceDirection);
         HandleVelocity();
     }
 
@@ -48,7 +48,7 @@ public class PaddleController : MonoBehaviour
     //Method that updates the current force direction
     public void OnMove(InputValue input)
     {
-        Debug.Log("move input called");
+        //Debug.Log("move input called");
         forceDirection = input.Get<float>();
     }
 
