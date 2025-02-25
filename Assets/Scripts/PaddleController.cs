@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class PaddleController : MonoBehaviour
+public class PaddleController : NetworkBehaviour
 {
     [SerializeField] private float moveforce;
     [SerializeField] private float maxSpeed;
@@ -21,7 +22,9 @@ public class PaddleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(forceDirection);
+        //check if application is focused for input (to allow multiple instances)
+        if (!Application.isFocused) return;
+
         HandleVelocity();
     }
 
