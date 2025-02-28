@@ -9,6 +9,8 @@ public class Ball : NetworkBehaviour
     [SerializeField] private float startSpeed;
     [SerializeField] private float ballRadius;
     [SerializeField][Range(0, 1)] private float speedIncrease;
+    [SerializeField] private float playerSize;
+    [SerializeField] private float playerHitDeviation = 1f;
 
     private float p1GoalPos; //assumed left player
     private float p2GoalPos; //assumed right player
@@ -61,8 +63,8 @@ public class Ball : NetworkBehaviour
     private void Bounce(RaycastHit2D hitInfo)
     {
         Vector2 surfaceNormal = hitInfo.normal;
-        Vector2 newVelocity = Vector2.Reflect(rb.velocity.normalized, surfaceNormal);
-        rb.velocity = newVelocity * rb.velocity.magnitude;
+        Vector2 newDirection = Vector2.Reflect(rb.velocity.normalized, surfaceNormal);
+        rb.velocity = newDirection.normalized * rb.velocity.magnitude;
     }
 
     //Method that perform a reflection of the ball using player as randomizations
@@ -70,9 +72,20 @@ public class Ball : NetworkBehaviour
     {
         //getting the regular reflection to use as a base 
         Vector2 surfaceNormal = hitInfo.normal;
-        Vector2 newVelocity = Vector2.Reflect(rb.velocity.normalized, surfaceNormal);
+        Vector2 newDirection = Vector2.Reflect(rb.velocity.normalized, surfaceNormal);
+
+        //make impact point affect the bounce
+        float difference = (hitInfo.point.y - hitInfo.transform.position.y)/playerSize;
+        if (hitInfo.point.y > hitInfo.transform.position.y)
+        {
+            newDirection.y += difference * playerHitDeviation;
+        }
+        else
+        {
+            newDirection.y -= difference * playerHitDeviation;
+        }
 
         //increasing speed each player bounce to make constantly relfectinn the ball harder
-        rb.velocity = newVelocity * rb.velocity.magnitude * (1+speedIncrease);
+        rb.velocity = newDirection.normalized * rb.velocity.magnitude * (1+speedIncrease);
     }
 }
