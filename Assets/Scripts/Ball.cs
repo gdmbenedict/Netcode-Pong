@@ -9,7 +9,7 @@ public class Ball : NetworkBehaviour
     [SerializeField] private float startSpeed;
     [SerializeField] private float ballRadius;
     [SerializeField][Range(0, 1)] private float speedIncrease;
-    [SerializeField] private float playerSize;
+    [SerializeField] private float playerRadius;
     [SerializeField] private float playerHitDeviation = 1f;
 
     private float p1GoalPos; //assumed left player
@@ -75,7 +75,7 @@ public class Ball : NetworkBehaviour
         Vector2 newDirection = Vector2.Reflect(rb.velocity.normalized, surfaceNormal);
 
         //make impact point affect the bounce
-        float difference = (hitInfo.point.y - hitInfo.transform.position.y)/playerSize;
+        float difference = (hitInfo.point.y - hitInfo.transform.position.y)/playerRadius;
         if (hitInfo.point.y > hitInfo.transform.position.y)
         {
             newDirection.y += difference * playerHitDeviation;
