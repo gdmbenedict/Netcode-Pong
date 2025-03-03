@@ -45,13 +45,11 @@ public class Ball : NetworkBehaviour
         Vector2 direction = velocity.normalized;
         float checkDistance = velocity.magnitude * Time.deltaTime + ballRadius;
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, checkDistance, collisionDetectionMask);
-        Debug.DrawLine(startPos, startPos + direction * checkDistance, Color.red);
+        //Debug.DrawLine(startPos, startPos + direction * checkDistance, Color.red);
 
         //checking for collisions
         if (hit)
         {
-            Debug.Log("collision detected");
-
             //determining which bounce mechanism to call
             if (hit.collider.CompareTag("Player"))
             {
@@ -71,14 +69,9 @@ public class Ball : NetworkBehaviour
     //Method that performs a reflection of the ball given normal reflection conditions
     private void Bounce(RaycastHit2D hitInfo)
     {
-        Debug.Log("Raycast Bounce Called");
-        Debug.Log(velocity);
-
         Vector2 surfaceNormal = hitInfo.normal;
         Vector2 newDirection = Vector2.Reflect(velocity.normalized, surfaceNormal);
         velocity = newDirection.normalized * velocity.magnitude;
-
-        Debug.Log(velocity);
     }
 
     //Method that perform a reflection of the ball using player as randomizations
