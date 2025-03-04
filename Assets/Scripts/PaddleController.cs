@@ -55,4 +55,11 @@ public class PaddleController : NetworkBehaviour
         forceDirection = input.Get<float>();
     }
 
+    //method that resets the position and 
+    public void ResetPaddle(Vector3 spawnPoint)
+    {
+        gameObject.transform.position = spawnPoint;
+        rb.velocity = Vector2.zero;
+    }
+
 }
