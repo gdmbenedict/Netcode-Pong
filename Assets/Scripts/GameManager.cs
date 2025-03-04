@@ -75,8 +75,8 @@ public class GameManager : NetworkBehaviour
             EndGame();
         }
 
-        playerScores[1].text = clientScore.Value.ToString();
-        playerScores[0].text = hostScore.Value.ToString();
+        playerScores[0].text = clientScore.Value.ToString();
+        playerScores[1].text = hostScore.Value.ToString();
     }
 
     //Method that spawns a ball to be used for the game.
