@@ -14,9 +14,10 @@ public class PaddleController : NetworkBehaviour
     private float minSpeed = 0.0001f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        //GameManager.instance.SetPaddleController(NetworkManager.Singleton.IsServer, this);
+        GameManager.instance.SetPaddleController(this);
     }
 
     // Update is called once per frame

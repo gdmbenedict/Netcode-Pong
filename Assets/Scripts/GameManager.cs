@@ -12,8 +12,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private int winScore = 10;
     
     [Header("Player Variables")]
-    [SerializeField] private List<Vector3> playerSpawnPoints;
-    [SerializeField] private List<TextMeshPro> playerScores;
+    [SerializeField] private Vector3[] playerSpawnPoints;
+    [SerializeField] private TextMeshPro[] playerScores;
     private NetworkVariable<int> hostScore = new NetworkVariable<int>(0);
     private NetworkVariable<int> clientScore = new NetworkVariable<int>(0);
     private PaddleController hostController;
@@ -64,8 +64,7 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NetworkManager.Singleton.OnServerStarted += HostConnected;
-        NetworkManager.Singleton.OnConnectionEvent += ClientConnected;
+        
     }
 
     // Update is called once per frame
@@ -117,7 +116,7 @@ public class GameManager : NetworkBehaviour
     }
 
     //Method that starts the game.
-    private void StartGame()
+    public void StartGame()
     {
         gameActive.Value = true;
 
@@ -133,13 +132,33 @@ public class GameManager : NetworkBehaviour
         SpawnBall();
     }
 
-    private void HostConnected()
+    //Method that connects a paddle controller to the game manager
+    public void SetPaddleController(bool isHost, PaddleController paddle)
     {
-        Debug.Log("Host Event Called");
+        if (isHost)
+        {
+            hostController = paddle;
+        }
+        else
+        {
+            clientController = paddle;
+        }
     }
 
-    private void ClientConnected(NetworkManager manager, ConnectionEventData data)
+    public void SetPaddleController(PaddleController paddle)
     {
-        Debug.Log("Client Event Called");
+        if (hostController == null)
+        {
+            hostController = paddle;
+        }
+        else
+        {
+            clientController = paddle;
+        }
+    }
+
+    public Vector3 GetSpawnPoint(int index)
+    {
+        return playerSpawnPoints[index];
     }
 }

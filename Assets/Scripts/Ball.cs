@@ -57,7 +57,15 @@ public class Ball : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("Goal"))
             {
-                //do goal logic
+                bool hostGoal = false;
+
+                if (transform.position.x > 0)
+                {
+                    hostGoal = true;
+                }
+
+                GameManager.instance.Score(hostGoal);
+                Destroy(gameObject);
             }
             else
             {
