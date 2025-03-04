@@ -31,6 +31,8 @@ public class Ball : NetworkBehaviour
 
     private void Launch()
     {
+        if (!IsOwner) return;
+
         //determining which direction to launch the ball
         float x = Random.Range(-1f, 1f);
         float y = Random.Range(-1f, 1f);
@@ -59,7 +61,7 @@ public class Ball : NetworkBehaviour
             {
                 bool hostGoal = false;
 
-                if (transform.position.x > 0)
+                if (transform.position.x < 0)
                 {
                     hostGoal = true;
                 }

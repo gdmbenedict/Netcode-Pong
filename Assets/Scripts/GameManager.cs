@@ -76,7 +76,7 @@ public class GameManager : NetworkBehaviour
         }
 
         playerScores[1].text = clientScore.Value.ToString();
-        playerScores[0].text = clientScore.Value.ToString();
+        playerScores[0].text = hostScore.Value.ToString();
     }
 
     //Method that spawns a ball to be used for the game.
@@ -93,12 +93,12 @@ public class GameManager : NetworkBehaviour
     {
         if (hostGoal)
         {
-            clientScore.Value++;
+            hostScore.Value++;
             playerScores[1].text = clientScore.Value.ToString();
         }
         else
         {
-            hostScore.Value++;
+            clientScore.Value++;
             playerScores[0].text = clientScore.Value.ToString();
         }
 
