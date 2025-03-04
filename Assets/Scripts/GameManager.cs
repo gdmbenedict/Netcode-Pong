@@ -74,6 +74,9 @@ public class GameManager : NetworkBehaviour
         {
             EndGame();
         }
+
+        playerScores[1].text = clientScore.Value.ToString();
+        playerScores[0].text = clientScore.Value.ToString();
     }
 
     //Method that spawns a ball to be used for the game.
@@ -118,13 +121,12 @@ public class GameManager : NetworkBehaviour
     //Method that starts the game.
     public void StartGame()
     {
+        if (!IsOwner) return;
+
         gameActive.Value = true;
 
         clientScore.Value = 0;
         hostScore.Value = 0;
-
-        playerScores[1].text = clientScore.Value.ToString();
-        playerScores[0].text = clientScore.Value.ToString();
 
         hostController.ResetPaddle(playerSpawnPoints[0]);
         clientController.ResetPaddle(playerSpawnPoints[1]);
