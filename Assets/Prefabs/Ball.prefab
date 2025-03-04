@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 29592848
+  GlobalObjectIdHash: 3297810085
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72716341b55e87e4c815b00119b04816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 2
+  startSpeed: 4
   ballRadius: 0.075
   speedIncrease: 0.1
   playerRadius: 4
