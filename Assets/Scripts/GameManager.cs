@@ -25,27 +25,47 @@ public class GameManager : NetworkBehaviour
     private GameObject ballInstance;
     private NetworkObject ballNetworkObject;
 
-    private void Awake()
+    private static GameManager _instance;
+
+    //function that checks if Instance exists and spawns one if it does not
+    public static GameManager instance
     {
-        
+        get
+        {
+            _instance = FindObjectOfType<GameManager>();  // Try to find an existing AudioManager in the scene
+
+            //check if Instance is null
+            if (_instance == null)
+            {
+                // If no Instance exists, instantiate it
+                _instance = Instantiate(Resources.Load("GameManager") as GameObject).GetComponent<GameManager>();
+                _instance.name = "GameManager";
+            }
+            return _instance;
+        }
     }
 
-    private void OnEnable()
+    // Awake is called before the first frame update and before start
+    void Awake()
     {
-        NetworkManager.Singleton.OnServerStarted += HostConnected;
-        NetworkManager.Singleton.OnConnectionEvent += ClientConnected;
-    }
-
-    private void OnDisable()
-    {
-        NetworkManager.Singleton.OnServerStarted -= HostConnected;
-        NetworkManager.Singleton.OnConnectionEvent -= ClientConnected;
+        //check if this is the active Instance
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            //remove copy
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        NetworkManager.Singleton.OnServerStarted += HostConnected;
+        NetworkManager.Singleton.OnConnectionEvent += ClientConnected;
     }
 
     // Update is called once per frame
