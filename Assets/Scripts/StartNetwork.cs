@@ -8,8 +8,7 @@ using UnityEngine;
 public class StartNetwork : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ipDisplay;
-    //[SerializeField] private TMP_InputField ipInput;
-    [SerializeField] private string ip;
+    [SerializeField] private TMP_InputField ipInput;
     private UnityTransport transport;
 
     private void Start()
@@ -19,20 +18,23 @@ public class StartNetwork : MonoBehaviour
 
     public void StartHost()
     {
-        transport.SetConnectionData("0.0.0.0", transport.ConnectionData.Port);
+        //retreive system ip and display it for sharing
+        string systemIP = IPManager.GetIP(ADDRESSFAM.IPv4);
+        ipDisplay.text = systemIP;
+
+        SetIPAddress("0.0.0.0");
         NetworkManager.Singleton.StartHost();
     }
 
     public void StartClient()
     {
-        string ip = this.ip;
+        string ip = ipInput.text;
         SetIPAddress(ip);
         NetworkManager.Singleton.StartClient();
     }
 
     private void SetIPAddress(string ip)
     {
-        transport.ConnectionData.Address = ip;
-        transport.ConnectionData.Port = 7777;
+        transport.SetConnectionData(ip, transport.ConnectionData.Port);
     }
 }
