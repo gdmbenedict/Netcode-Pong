@@ -19,7 +19,7 @@ public class StartNetwork : MonoBehaviour
     public void StartHost()
     {
         //retreive system ip and display it for sharing
-        string systemIP = IPManager.GetIP(ADDRESSFAM.IPv4);
+        string systemIP = "IP: " + IPManager.GetIP(ADDRESSFAM.IPv4);
         ipDisplay.text = systemIP;
 
         SetIPAddress("0.0.0.0");
