@@ -79,6 +79,8 @@ public class Ball : NetworkBehaviour
     //Method that performs a reflection of the ball given normal reflection conditions
     private void Bounce(RaycastHit2D hitInfo)
     {
+        if (!IsOwner) return;
+
         Vector2 surfaceNormal = hitInfo.normal;
         Vector2 newDirection = Vector2.Reflect(velocity.Value.normalized, surfaceNormal);
         velocity.Value = newDirection.normalized * velocity.Value.magnitude;
@@ -87,6 +89,8 @@ public class Ball : NetworkBehaviour
     //Method that perform a reflection of the ball using player as randomizations
     private void PlayerBounce(RaycastHit2D hitInfo)
     {
+        if (!IsOwner) return;
+
         //getting the regular reflection to use as a base 
         Vector2 surfaceNormal = hitInfo.normal;
         Vector2 newDirection = Vector2.Reflect(velocity.Value.normalized, surfaceNormal);
@@ -109,6 +113,8 @@ public class Ball : NetworkBehaviour
     //Method that updates the position of the ball
     private void UpdatePosition()
     {
+        
+
         transform.position += (Vector3)velocity.Value * Time.deltaTime;
     }
 }
